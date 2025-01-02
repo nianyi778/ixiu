@@ -25,10 +25,7 @@ function showWindow(): void {
     mainWindow.setPosition(position.x, position.y, false)
     rendererVisible({
       visible: true,
-      mainWindow: mainWindow,
-      config: {
-        position
-      }
+      mainWindow: mainWindow
     })
   }
 }
@@ -40,6 +37,7 @@ export const createHomescreen = (): BrowserWindow => {
     show: false, // 窗口创建时不显示
     width: 310,
     height: 410,
+    // hasShadow: false,
     frame: false, // 无边框窗口
     enableLargerThanScreen: true, // 允许窗口超出屏幕 yyds
     transparent: true, // 背景透明

@@ -12,7 +12,6 @@ export const createSettingMenu = ({ top }: { top: BrowserWindow }): BrowserWindo
   }
 
   if (childWindow) {
-    console.log('设置1')
     rendererVisible({
       visible: !winIsVisible(),
       mainWindow: childWindow
@@ -28,10 +27,11 @@ export const createSettingMenu = ({ top }: { top: BrowserWindow }): BrowserWindo
     x: x + width - 70, // 偏移到父窗口右上角
     y: y + 50, // 距离顶部 50px
     width: 140,
-    height: 240,
+    height: 200,
+    hasShadow: false,
     frame: false, // 去掉边框
     transparent: true, // 启用透明背景
-    visualEffectState: 'followWindow', // 禁用活动状态视觉效果
+    backgroundColor: '#00000000',
     // enableLargerThanScreen: true, // 允许窗口超出屏幕 yyds
     // focusable: true, // 确保窗口可聚焦
     // alwaysOnTop: true, // 如果需要检测焦点丢失，避免使用 alwaysOnTop

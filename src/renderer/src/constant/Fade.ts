@@ -9,7 +9,7 @@ export default {
     from: { transform: 'translateX(100%)' }, // 从屏幕右侧开始
     enter: { transform: 'translateX(0%)' }, // 移动到屏幕中间
     leave: { transform: 'translateX(100%)' }, // 离开到屏幕右侧
-    config: { tension: 300, friction: 20 } // 添加弹性动画效果
+    config: { tension: 200, friction: 20 } // 添加弹性动画效果
   },
   scale: {
     from: {
