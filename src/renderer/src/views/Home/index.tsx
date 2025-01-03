@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Button, Statistic } from 'antd'
 import { SettingOutlined } from '@ant-design/icons'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const { Countdown } = Statistic
 
@@ -19,10 +19,6 @@ export default function Home(): JSX.Element {
       console.log(`Time updated: ${remainingTime}s`)
       setTime(Date.now() + remainingTime * 1000)
     })
-  }, [])
-
-  const onFinish = useCallback(() => {
-    ipcHandleCreateFull()
   }, [])
 
   return (
@@ -53,7 +49,7 @@ export default function Home(): JSX.Element {
             </a>
           </div>
         </div>
-        <Countdown className=" pt-[20px]" value={time} onFinish={onFinish} format="mm:ss" />
+        <Countdown className=" pt-[20px]" value={time} format="mm:ss" />
         <p className="pt-[10px]">
           <span>工作结束，休息20秒</span>
         </p>

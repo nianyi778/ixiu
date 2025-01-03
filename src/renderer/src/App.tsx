@@ -1,15 +1,16 @@
-import { lazy, Suspense } from 'react'
+import { Suspense } from 'react'
 import { Routes, Route, HashRouter as Router } from 'react-router-dom'
-const Overlook = lazy(() => import('./views/Overlook'))
-const Home = lazy(() => import('./views/Home'))
-const SettingMenu = lazy(() => import('./views/SettingMenu'))
+import Overlook from './views/Overlook'
+import Home from './views/Home'
+import SettingMenu from './views/SettingMenu'
+
 import Layout from './components/Layout'
 
 function App(): JSX.Element {
   return (
     <>
       <Router>
-        <Suspense fallback={<div>加载中...</div>}>
+        <Suspense fallback={null}>
           <Routes>
             <Route
               path="/"
