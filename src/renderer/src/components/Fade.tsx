@@ -4,7 +4,7 @@ import fadeAnimation from '@renderer/constant/Fade'
 import { useLayoutContext } from './Layout/LayoutContext'
 export interface FadeComponentProps {
   children: React.ReactNode
-  type?: 'scale' | 'upDown' | 'rightToLeft'
+  type?: 'scale' | 'upDown' | 'rightToLeft' | 'none'
 }
 
 export interface FadeComponentHandle {
@@ -19,7 +19,7 @@ const FadeComponent = forwardRef<FadeComponentHandle, FadeComponentProps>(
     const ipcHandleWinVisible = (visibility): void =>
       window.electron.ipcRenderer.send('win_visible', { visibility, win })
 
-    const animation = fadeAnimation[type]
+    const animation = fadeAnimation[type] || fadeAnimation.defaultConfig
     // 定义 useTransition 动画
     const transitions = useTransition(shouldRender, {
       ...animation,

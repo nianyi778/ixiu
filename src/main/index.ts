@@ -1,8 +1,9 @@
 import { app, BrowserWindow, ipcMain, Tray } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
 import cloudTemplate from '../../resources/tray/cloudTemplate.png?asset'
-import { createHomescreen } from './HomeScreen'
-
+import { createHomescreen } from './screen/HomeScreen'
+import Scheduler from './tasks/scheduler'
+import { createFullscreen } from './screen/Fullscreen'
 export const windowsMap = new Map<number, BrowserWindow>()
 
 // Hide the dock icon on macOS
@@ -41,7 +42,7 @@ function createTray(): void {
   // 设置托盘图标的菜单
   // tray.setContextMenu(contextMenu)
 
-  tray.setToolTip('uTools Example') // 鼠标悬浮提示文字
+  tray.setToolTip('「一咻」一眨眼就过去了🚀') // 鼠标悬浮提示文字
   // tray.setTitle('This is my title') // 会导致tray 不显示
 }
 
@@ -127,22 +128,21 @@ app.whenReady().then(() => {
     }
   )
 
+  ipcMain.handle('ping', () => 'pong')
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  // ipcMain.on('ping', () => console.log('pong'))
 
   createTray()
   createHomescreen()
-
-  // app.on('activate', function () {
-  //   if (mainWindow) {
-  //     mainWindow?.show()
-  //   }
-  //   // On macOS it's common to re-create a window in the app when the
-  //   // dock icon is clicked and there are no other windows open.
-  //   if (BrowserWindow.getAllWindows().length === 0) {
-  //     mainWindow = createHomescreen()
-  //   }
-  // })
+  tasks()
+  app.on('activate', function () {
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createHomescreen()
+      tasks()
+    }
+  })
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -156,3 +156,32 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+function tasks(): void {
+  const onFinish = (): void => {
+    createFullscreen()
+  }
+
+  // 自动启动倒计时
+  Scheduler.startCountdown(onFinish)
+
+  // 暴露方法：停止倒计时
+  ipcMain.handle('stop-countdown', () => {
+    Scheduler.stopCountdown()
+  })
+
+  // 暴露方法：重置倒计时
+  ipcMain.handle('reset-countdown', () => {
+    Scheduler.resetCountdown(onFinish)
+  })
+
+  // 暴露方法：获取剩余时间
+  ipcMain.handle('get-remaining-time', () => {
+    return Scheduler.getRemainingTime()
+  })
+
+  // 暴露方法：设置倒计时时间
+  ipcMain.handle('set-countdown-duration', (_, seconds: number) => {
+    Scheduler.setDuration(seconds, onFinish)
+  })
+}

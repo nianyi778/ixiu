@@ -3,8 +3,9 @@
 import { app, BrowserWindow, globalShortcut, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
-import { getWindowPosition, rendererVisible, tray, windowsMap } from './index'
+import { getWindowPosition, rendererVisible, tray, windowsMap } from '../index'
 import { createSettingMenu, childWindow } from './SettingMenu'
+import { createFullscreen } from './Fullscreen'
 export let mainWindow: BrowserWindow | null = null
 
 const winIsVisible = function (): boolean {
@@ -68,8 +69,9 @@ export const createHomescreen = (): BrowserWindow => {
   })
 
   mainWindow.on('ready-to-show', () => {
-    // mainWindow?.show()
     mainWindow && windowsMap.set(mainWindow?.id, mainWindow)
+    // 项目第一次启动，自动打开
+    showWindow()
 
     tray?.on('click', () => {
       toggleWindow()
@@ -78,7 +80,6 @@ export const createHomescreen = (): BrowserWindow => {
 
   mainWindow.on('blur', () => {
     if (BrowserWindow.getFocusedWindow() == childWindow) {
-      console.log('子组件嘎嘎')
       return
     } else {
       winIsVisible() && rendererVisible({ visible: false, mainWindow })
@@ -102,5 +103,11 @@ export const createHomescreen = (): BrowserWindow => {
     createSettingMenu({ top: mainWindow as BrowserWindow })
   })
 
+  ipcMain.on('createFullscreen', () => {
+    winIsVisible() && rendererVisible({ visible: false, mainWindow })
+    setTimeout(() => {
+      createFullscreen()
+    }, 100)
+  })
   return mainWindow
 }

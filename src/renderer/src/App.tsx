@@ -30,7 +30,7 @@ function App(): JSX.Element {
             <Route
               path="/settingmenu"
               element={
-                <Layout type="rightToLeft" defaultVisible>
+                <Layout type="none" defaultVisible>
                   <SettingMenu />
                 </Layout>
               }

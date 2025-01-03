@@ -3,11 +3,23 @@
 import { app, BrowserWindow, globalShortcut, screen, shell } from 'electron'
 import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
-import { rendererVisible } from './index'
+import { rendererVisible, windowsMap } from '../index'
 
 export let fullWindow: BrowserWindow | null = null
 
 export const createFullscreen = (): BrowserWindow => {
+  const winIsVisible = function (): boolean {
+    return !!(fullWindow && fullWindow.isVisible())
+  }
+
+  if (fullWindow) {
+    rendererVisible({
+      visible: !winIsVisible(),
+      mainWindow: fullWindow
+    })
+    return fullWindow
+  }
+
   // 获取主屏幕的完整尺寸（包括信号栏/任务栏区域）
   const primaryDisplay = screen.getPrimaryDisplay()
   const { width, height, x, y } = primaryDisplay.bounds
@@ -44,13 +56,14 @@ export const createFullscreen = (): BrowserWindow => {
   })
 
   fullWindow.on('ready-to-show', () => {
-    fullWindow?.show()
-
-    // WIN 系统下设置背景透明
-    fullWindow?.setBackgroundColor('#00000000')
-
-    // 设置优先级
-    fullWindow?.setAlwaysOnTop(true, 'screen-saver')
+    if (fullWindow) {
+      windowsMap.set(fullWindow?.id, fullWindow)
+      rendererVisible({ visible: true, mainWindow: fullWindow })
+      // WIN 系统下设置背景透明
+      fullWindow?.setBackgroundColor('#00000000')
+      // 设置优先级
+      fullWindow?.setAlwaysOnTop(true, 'screen-saver')
+    }
   })
 
   fullWindow.on('blur', () => {

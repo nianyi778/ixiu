@@ -1,7 +1,7 @@
 import { is } from '@electron-toolkit/utils'
 import { BrowserWindow, shell } from 'electron'
 import { join } from 'path'
-import { rendererVisible, windowsMap } from '.'
+import { rendererVisible, windowsMap } from '..'
 export let childWindow: BrowserWindow | null = null
 
 export const createSettingMenu = ({ top }: { top: BrowserWindow }): BrowserWindow => {
@@ -27,8 +27,8 @@ export const createSettingMenu = ({ top }: { top: BrowserWindow }): BrowserWindo
     x: x + width - 70, // 偏移到父窗口右上角
     y: y + 50, // 距离顶部 50px
     width: 140,
-    height: 200,
-    hasShadow: false,
+    height: 190,
+    // hasShadow: false,
     frame: false, // 去掉边框
     transparent: true, // 启用透明背景
     backgroundColor: '#00000000',
