@@ -74,7 +74,9 @@ export const createSettingMenu = ({ top }: { top: BrowserWindow }): BrowserWindo
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     childWindow.loadURL(process.env['ELECTRON_RENDERER_URL'] + '#settingmenu')
   } else {
-    childWindow.loadFile(join(__dirname, '../renderer/index.html' + '#settingmenu'))
+    childWindow.loadFile(join(__dirname, '../renderer/index.html'), {
+      hash: '#/settingmenu'
+    })
   }
 
   return childWindow

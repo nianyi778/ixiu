@@ -93,7 +93,9 @@ export const createFullscreen = (): BrowserWindow => {
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     fullWindow.loadURL(process.env['ELECTRON_RENDERER_URL'] + '#/overlook')
   } else {
-    fullWindow.loadFile(join(__dirname, '../renderer/index.html' + '#/overlook'))
+    fullWindow.loadFile(join(__dirname, '../renderer/index.html'), {
+      hash: '#/overlook'
+    })
   }
 
   return fullWindow
