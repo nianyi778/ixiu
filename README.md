@@ -1,8 +1,18 @@
+
 # ixiu
 
 **ixiu** 是一个基于 React、Electron 和 Tailwind CSS 开发的 macOS 应用程序，用于提供工作定时提醒功能，帮助用户高效管理时间，提高生产力。
 
 **ixiu** is a macOS application developed using React, Electron, and Tailwind CSS. It provides work timer reminders to help users manage their time effectively and boost productivity.
+
+---
+## **Preview Effect | 演示效果**
+![截屏2025-01-06 17 44 58](https://github.com/user-attachments/assets/36dc961c-14d9-4b0c-8cba-80aac49cbd44)
+
+
+
+https://github.com/user-attachments/assets/878191ee-53ec-46d1-bbd0-ed6673a49085
+
 
 ---
 
