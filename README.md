@@ -6,6 +6,20 @@
 **ixiu** is a macOS application developed using React, Electron, and Tailwind CSS. It provides work timer reminders to help users manage their time effectively and boost productivity.
 
 ---
+
+## "ixiu" 的名称来源解读
+
+**拟声词，形容转瞬即逝：**
+体现了珍惜时间、提高效率的理念。通过提醒用户关注时间的流逝，寓意珍惜当下、合理安排时间。这个内涵也可以让产品与目标用户的情感更贴近。
+
+**“休”表示提醒休息：**
+将产品与健康管理联系起来，提示用户注意劳逸结合，避免过度劳累。这种关怀用户的功能性设计，也能够增强用户对产品的依赖与好感。
+
+**“一休”，容易记住：**
+这个联想具有亲切感，尤其对于中文用户，“一休”容易让人联想到“一休和尚”，既活泼又幽默。同时，“一休”可以暗示一种平静、放松的状态，与产品提倡的平衡生活理念相符合。
+
+
+---
 ## **Preview Effect | 演示效果**
 ![截屏2025-01-06 17 44 58](https://github.com/user-attachments/assets/36dc961c-14d9-4b0c-8cba-80aac49cbd44)
 
